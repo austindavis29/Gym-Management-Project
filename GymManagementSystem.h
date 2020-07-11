@@ -44,13 +44,13 @@ class Worker: public Person
 };
 
 void readInNames(string firstNames[], string lastNames[]);
-void createMembers(string firstNames[], string lastNames[], Member list[]);
+void createMembers(string firstNames[], string lastNames[], vector<Member> &list);
 int Menu(int &choice);
 void swap(Member* member1, Member* member2);
-void searchForMember(Member list[]);
-int partitionID(Member list[], int low, int high);
-void sortByID(Member list[], int low, int high);
-int partitionName(Member list[], int low, int high);
-void sortByName(Member list[], int low, int high);
-
-
+void searchForMember(vector<Member> list, int numOfMembers);
+int partitionID(vector<Member> &list, int low, int high);
+void sortByID(vector<Member> &list, int low, int high);
+int partitionName(vector<Member> &list, int low, int high);
+void sortByName(vector<Member> &list, int low, int high);
+void addMember(vector<Member> &list, int &numOfMembers);
+void removeMember(vector<Member> &list, int &numOfMembers);

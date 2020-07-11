@@ -6,7 +6,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
-#include "GymManagementProject.h"
+#include <vector>
+#include "GymManagementSystem.h"
 using namespace std;
 
 Person::Person()
@@ -125,7 +126,7 @@ void readInNames(string firstNames[], string lastNames[])
 }
 
 
-void createMembers(string firstNames[], string lastNames[], Member list[])
+void createMembers(string firstNames[], string lastNames[], vector<Member> &list)
 {
 	srand(time(0));
 	string first = " ";
@@ -151,12 +152,14 @@ int Menu(int &choice)
      	  << "Enter 2 to search for a member" << endl
      	  << "Enter 3 to sort by Member ID" << endl
           << "Enter 4 to sort by members names alphabetically" << endl
-          << "Enter 5 to Quit"                               << endl;
+          << "Enter 5 to add a new member" << endl
+          << "Enter 6 to remove a member" << endl
+          << "Enter 7 to quit" << endl;
      cin >> choice;
      return choice;
 }
 
-void searchForMember(Member list[])
+void searchForMember(vector<Member> list, int numOfMembers)
 {
 	int choice = 0;
 	int count = 0;
@@ -169,7 +172,7 @@ void searchForMember(Member list[])
 	{
 		cout << "Enter a valid five digit ID" << endl;
 		cin >> ID;
-		for(int i=0; i<100; i++)
+		for(int i=0; i<numOfMembers; i++)
 		{
 			if(ID == list[i].getIDNumber())
 			{
@@ -185,12 +188,13 @@ void searchForMember(Member list[])
 	{
 		cout << "Enter a valid last name" << endl;
 		cin >> name;
-		for(int i=0; i<100; i++)
+		for(int i=0; i<numOfMembers; i++)
 		{
 			if(name == list[i].getLastName())
 			{	
 				list[i].printMember();
 				count++;
+
 			}
 		}	
 		if (count == 0)
@@ -211,7 +215,7 @@ void swap(Member* member1, Member* member2)
 	*member2 = temp;
 }
 
-int partitionID(Member list[], int low, int high)
+int partitionID(vector<Member> &list, int low, int high)
 {
 	int pivot = list[high].getIDNumber();
 	int i = (low - 1);
@@ -231,7 +235,7 @@ int partitionID(Member list[], int low, int high)
 
 
 //will be using quicksort
-void sortByID(Member list[], int low, int high)
+void sortByID(vector<Member> &list, int low, int high)
 {
  	 if (low < high)  
     {  
@@ -246,7 +250,7 @@ void sortByID(Member list[], int low, int high)
     }  
 }
 
-int partitionName(Member list[], int low, int high)
+int partitionName(vector<Member> &list, int low, int high)
 {
 	string pivot = list[high].getLastName();
 	int i = (low - 1);
@@ -272,7 +276,7 @@ int partitionName(Member list[], int low, int high)
     return (i + 1);  
 }
 
-void sortByName(Member list[], int low, int high)
+void sortByName(vector<Member> &list, int low, int high)
 {
 	if (low < high)  
     {  
@@ -287,8 +291,21 @@ void sortByName(Member list[], int low, int high)
     }  
 }
 
-
-
-
-
+void addMember(vector<Member> &list, int &numOfMembers)
+{
+	srand(time(0));
+	string first=" ";
+	string last=" ";
+	int IDnum=0;
+    numOfMembers++;
+	list.resize(numOfMembers);
+	cout << "Enter first name [space] last name " << endl;
+	cin >> first >> last;
+	IDnum = rand() % 99999;
+	list[numOfMembers-1].setMember(first,last,IDnum);
+}
+void removeMember(vector<Member> &list, int &numOfMembers)
+{
+	searchForMember(list,numOfMembers);
+}
 

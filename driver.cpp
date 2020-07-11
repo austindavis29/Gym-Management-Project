@@ -3,14 +3,16 @@
 //This is the header file
 #include <iostream>
 #include <fstream>
-#include "GymManagementProject.h"
+#include <vector>
+#include "GymManagementSystem.h"
+using namespace std;
 int main()
 {
-	
-	string firstNames[100];
-	string lastNames[100];
-	Member list[100];
+	int numOfMembers = 100;
 	int choice = 0;
+	string firstNames[numOfMembers];
+	string lastNames[numOfMembers];
+	vector<Member> list(numOfMembers);
  	readInNames(firstNames,lastNames);
  	createMembers(firstNames,lastNames, list);
  	cout << "Welcome to MyGymManager!" << endl << endl;
@@ -20,29 +22,36 @@ int main()
         	switch (choice)
             {
                  case 1: //PRINT LIST OF MEMBERS
-                         for (int j=0; j<100; j++)
+                         for (int j=0; j<numOfMembers; j++)
 						 {
 						 	list[j].printMember();
 						 }
                          break;
                  case 2: //SEARCH FOR A MEMBER
-                         searchForMember(list);
+                         searchForMember(list,numOfMembers);
                          break;
                  case 3: //SORT BY MEMBER ID
-                         sortByID(list, 0, 99);
+                         sortByID(list, 0, numOfMembers-1);
                          break;
                  case 4: //SORT BY MEMBER NAME
-                         sortByName(list, 0, 99);
+                         sortByName(list, 0, numOfMembers-1);
                          break;
-                case 5: //QUIT THE PROGRAM
+                case 5: //ADD A NEW MEMBER
+                         addMember(list, numOfMembers);
+                         break;
+                case 6: //REMOVE A MEMBER
+                         removeMember(list, numOfMembers);
+                         break;
+                case 7: //QUIT THE PROGRAM
                          exit(0);
                          break;
                  default: //INVALID CHOICE
                           cout << "You have entered an invalid choice" << endl;
             }
-        } while (choice != 5);  
-	
-	
-	
+        } while (choice != 7);  
 	
 }
+
+
+
+
