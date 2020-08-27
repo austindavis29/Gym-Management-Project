@@ -39,7 +39,11 @@ string Person::getLastName() const
 }
 
 
-//Include function comments
+//Name: printPerson
+//Description: Print the person with all of his or her parameters
+//Incoming: none
+//Outgoing: person's information to the screen
+//Return: None
 void Person::printPerson() const
 {
 	cout << "Name: " << firstName << " " << lastName << endl;
@@ -67,13 +71,19 @@ int Member::getIDNumber() const
 }
 
 
-
+//Name: PrintBowler
+//Description: Print the bowler with all of its parameters
+//Incoming: none
+//Outgoing: bowler information to the screen
+//Return: None
 void Member::printMember() const
 {
 	Person::printPerson();
 	cout << "ID number: " << setw(5) << setfill('0') << IDnumber << endl;
  }
- 
+
+//Havent used this class yet
+/* 
 Worker::Worker()
 {
 	position = "associate";
@@ -100,7 +110,12 @@ void Worker::printWorker() const
 	Person::printPerson();
 	cout << "Position: " << position << endl;
 }
-
+*/
+//Name: readInNames
+//Description: reads in first and last names from a text file
+//Incoming: first and last name arrays
+//Outgoing: none
+//Return: None
 void readInNames(string firstNames[], string lastNames[]) 
 {
 	ifstream infile;
@@ -125,7 +140,11 @@ void readInNames(string firstNames[], string lastNames[])
 	
 }
 
-
+//Name: createMembers
+//Description: Uses the first and last name arrays to create a vector of 100 members
+//Incoming: first and last name arrays, member vector
+//Outgoing: None
+//Return: None
 void createMembers(string firstNames[], string lastNames[], vector<Member> &list)
 {
 	srand(time(0));
@@ -146,6 +165,11 @@ void createMembers(string firstNames[], string lastNames[], vector<Member> &list
 	
 }
 
+//Name: Menu
+//Description: menu that displays choices for how to use the gym management system and reads in the choice
+//Incoming: int choice
+//Outgoing: int choice
+//Return: int choice
 int Menu(int &choice)
 {
      cout << "Enter 1 to print list of members" << endl
@@ -153,12 +177,17 @@ int Menu(int &choice)
      	  << "Enter 3 to sort by Member ID" << endl
           << "Enter 4 to sort by members names alphabetically" << endl
           << "Enter 5 to add a new member" << endl
-          << "Enter 6 to remove a member" << endl
+          << "Enter 6 to remove a member (not yet functional)" << endl
           << "Enter 7 to quit" << endl;
      cin >> choice;
      return choice;
 }
 
+//Name: searchForMember
+//Description: searches for member based either on ID or name input from the screen
+//Incoming: vector of members, int numOfMembers
+//Outgoing: search results
+//Return: None
 void searchForMember(vector<Member> list, int numOfMembers)
 {
 	int choice = 0;
@@ -208,6 +237,11 @@ void searchForMember(vector<Member> list, int numOfMembers)
 	
 }
 
+//Name: swap
+//Description: swaps two members' places in the members vector
+//Incoming: members to be swapped
+//Outgoing: none
+//Return: None
 void swap(Member* member1, Member* member2)
 {
 	Member temp = *member1;
@@ -215,6 +249,11 @@ void swap(Member* member1, Member* member2)
 	*member2 = temp;
 }
 
+//Name: partitionID
+//Description: divides the list based on ID Number for quicksort
+//Incoming: vector of members, member at the bottom of the list, member at the top of the list
+//Outgoing: partition
+//Return: partition
 int partitionID(vector<Member> &list, int low, int high)
 {
 	int pivot = list[high].getIDNumber();
@@ -234,7 +273,11 @@ int partitionID(vector<Member> &list, int low, int high)
 }  
 
 
-//will be using quicksort
+//Name: sortByID
+//Description: quicksort by ID from least to greatest
+//Incoming: vector of members, lowest member in the list, highest member in the list
+//Outgoing: newly sorted vector
+//Return: None
 void sortByID(vector<Member> &list, int low, int high)
 {
  	 if (low < high)  
@@ -250,6 +293,11 @@ void sortByID(vector<Member> &list, int low, int high)
     }  
 }
 
+//Name: partitionName
+//Description: divides the list based on last names for quicksort
+//Incoming: vector of members, member at the bottom of the list, member at the top of the list
+//Outgoing: partition
+//Return: partition
 int partitionName(vector<Member> &list, int low, int high)
 {
 	string pivot = list[high].getLastName();
@@ -276,6 +324,11 @@ int partitionName(vector<Member> &list, int low, int high)
     return (i + 1);  
 }
 
+//Name: sortByID
+//Description: quicksort by last name alphabetically
+//Incoming: vector of members, lowest member in the list, highest member in the list
+//Outgoing: newly sorted vector
+//Return: None
 void sortByName(vector<Member> &list, int low, int high)
 {
 	if (low < high)  
@@ -291,6 +344,11 @@ void sortByName(vector<Member> &list, int low, int high)
     }  
 }
 
+//Name: addMember
+//Description: adds a member to the vector of members
+//Incoming: vector of members, number of members
+//Outgoing: vector with new addition
+//Return: None
 void addMember(vector<Member> &list, int &numOfMembers)
 {
 	srand(time(0));
@@ -304,8 +362,38 @@ void addMember(vector<Member> &list, int &numOfMembers)
 	IDnum = rand() % 99999;
 	list[numOfMembers-1].setMember(first,last,IDnum);
 }
+
+/*
 void removeMember(vector<Member> &list, int &numOfMembers)
 {
-	searchForMember(list,numOfMembers);
+	int count = 0;
+	int holder = 0; //placeholder of members place in vector
+	int ID = 0;
+	int choice = 0;
+	cout << "Enter a valid five digit ID of the member to be removed" << endl;
+	cin >> ID;
+		for(int i=0; i<numOfMembers; i++)
+		{
+			if(ID == list[i].getIDNumber())
+			{
+				list[i].printMember();
+				holder = i;
+				count++;
+			}
+		}	
+	if (count == 0)
+		cout << "There was no match for the number entered" << endl;
+	cout << "Are you sure you would like to remove: "; 
+	list[holder].printMember(); 
+	cout << " ?" << endl;
+	cout << "Enter 1 if you would like to proceed and 2 to cancel" << endl;
+	cin >> choice;
+	if (choice==1)
+	{
+		//list.erase(list.begin());
+		numOfMembers--;
+		list.resize(numOfMembers);
+	}
+		
 }
-
+*/
