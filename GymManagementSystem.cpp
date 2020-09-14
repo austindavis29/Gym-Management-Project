@@ -71,10 +71,10 @@ int Member::getIDNumber() const
 }
 
 
-//Name: PrintBowler
-//Description: Print the bowler with all of its parameters
+//Name: PrintMember
+//Description: Print the member with all of his/her parameters
 //Incoming: none
-//Outgoing: bowler information to the screen
+//Outgoing: member information to the screen
 //Return: None
 void Member::printMember() const
 {
@@ -177,7 +177,7 @@ int Menu(int &choice)
      	  << "Enter 3 to sort by Member ID" << endl
           << "Enter 4 to sort by members names alphabetically" << endl
           << "Enter 5 to add a new member" << endl
-          << "Enter 6 to remove a member (not yet functional)" << endl
+          << "Enter 6 to remove a member" << endl
           << "Enter 7 to quit" << endl;
      cin >> choice;
      return choice;
@@ -363,7 +363,7 @@ void addMember(vector<Member> &list, int &numOfMembers)
 	list[numOfMembers-1].setMember(first,last,IDnum);
 }
 
-/*
+
 void removeMember(vector<Member> &list, int &numOfMembers)
 {
 	int count = 0;
@@ -376,24 +376,26 @@ void removeMember(vector<Member> &list, int &numOfMembers)
 		{
 			if(ID == list[i].getIDNumber())
 			{
-				list[i].printMember();
 				holder = i;
 				count++;
 			}
 		}	
 	if (count == 0)
 		cout << "There was no match for the number entered" << endl;
-	cout << "Are you sure you would like to remove: "; 
-	list[holder].printMember(); 
-	cout << " ?" << endl;
-	cout << "Enter 1 if you would like to proceed and 2 to cancel" << endl;
-	cin >> choice;
-	if (choice==1)
+	else
 	{
-		//list.erase(list.begin());
-		numOfMembers--;
-		list.resize(numOfMembers);
+		cout << "This is the member with the ID entered: "; 
+		cout << endl;
+		list[holder].printMember(); 
+		cout << "Are you sure you would like to remove this member?" << endl;
+		cout << "Enter 1 if you would like to proceed or 2 to cancel" << endl;
+		cin >> choice;
+		if (choice==1)
+		{
+			list.erase(list.begin() + holder);
+			numOfMembers--;
+			list.resize(numOfMembers);
+		}
 	}
-		
 }
-*/
+
