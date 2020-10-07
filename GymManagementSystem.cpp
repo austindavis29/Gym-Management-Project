@@ -82,35 +82,7 @@ void Member::printMember() const
 	cout << "ID number: " << setw(5) << setfill('0') << IDnumber << endl;
  }
 
-//Havent used this class yet
-/* 
-Worker::Worker()
-{
-	position = "associate";
-}
 
-Worker::Worker(string fir,string las,string pos) : Person(fir,las)
-{
-	position = pos;
-}
-
-void Worker::setWorker(string fir, string las, string pos)
-{
-	Person::setPerson(fir,las);
-	position = pos;
-}
-
-string Worker::getPosition() const
-{
-	return position;
-}
-
-void Worker::printWorker() const
-{
-	Person::printPerson();
-	cout << "Position: " << position << endl;
-}
-*/
 //Name: readInNames
 //Description: reads in first and last names from a text file
 //Incoming: first and last name arrays

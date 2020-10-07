@@ -31,17 +31,6 @@ class Member: public Person
 		void printMember() const;
 };
 
-class Worker: public Person
-{
-	private:
-		string position;
-	public:
-		Worker();
-		Worker(string,string,string);
-		void setWorker(string,string,string);
-		string getPosition() const;
-		void printWorker() const;
-};
 
 void readInNames(string firstNames[], string lastNames[]);
 void createMembers(string firstNames[], string lastNames[], vector<Member> &list);
